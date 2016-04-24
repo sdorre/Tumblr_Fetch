@@ -23,7 +23,12 @@ def fetchTumblrBasic( site, offset=-1, limit=-1, timestamp=0):
     if(r.status_code != 200):
         return None
 
-    json = r.json()
+    try:
+        json = r.json()
+    except ValueError:
+        print "Couldn't fetch a Json structure from %s" % site
+        return mlist
+
     # define a list to store each url
     posts = json.get('response').get('posts')
 
